@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginMaterialPage extends StatefulWidget {
-  const LoginMaterialPage({super.key});
+class SignupMaterialPage extends StatefulWidget {
+  const SignupMaterialPage({super.key});
 
   @override
-  State<LoginMaterialPage> createState() => _LoginMaterialPageState();
+  State<SignupMaterialPage> createState() => _SignupMaterialPageState();
 }
 
-class _LoginMaterialPageState extends State<LoginMaterialPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+class _SignupMaterialPageState extends State<SignupMaterialPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   String? email;
@@ -23,21 +23,20 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
     super.dispose();
   }
 
-  Future<void> loginUser() async {
-    if (!formKey.currentState!.validate()) return;
+  Future<void> createUserWithEmailAndPassword() async {
     try {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
-      print(userCredential);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Welcome back, ${userCredential.user?.email}!')),);
-    } on FirebaseException catch (e) {
-      print(e.message);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(e.message ?? 'Login failed')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User created: ${userCredential.user?.email}')),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message ?? 'Signup failed')));
     }
   }
 
@@ -62,18 +61,17 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
 
         title: Center(
           child: Text(
-            'Welcome Again !',
+            'Welcome!',
             style: TextStyle(
               fontSize: 30,
               color: const Color.fromARGB(212, 164, 165, 162),
             ),
           ),
         ),
-
-        // flexibleSpace: Center(child: SafeArea(child: Text("Please login",style: TextStyle(color: Colors.red),),),),
       ),
       body: Form(
         key: formKey,
+
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,16 +86,19 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
                 width: 300.0,
                 padding: EdgeInsets.all(20),
                 child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email is required';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Enter a valid email';
+                    }
+                    return null;
+                  },
                   style: TextStyle(
                     color: const Color.fromARGB(255, 119, 119, 119),
                   ),
                   controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Enter Email';
-                    }
-                    return null;
-                  },
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_circle_outlined),
                     prefixIconColor: const Color.fromARGB(255, 230, 13, 13),
@@ -118,16 +119,20 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
                 width: 300.0,
                 padding: EdgeInsets.all(20),
                 child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    }
+                    return null;
+                  },
+
                   style: TextStyle(
                     color: const Color.fromARGB(255, 119, 119, 119),
                   ),
                   controller: passwordController,
-                  validator: (value) {
-                    if (value == null || value.length < 6) {
-                      return "Password must have at least 6 characters";
-                    }
-                    return null;
-                  },
                   obscureText: true,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.password),
@@ -135,6 +140,8 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
                     filled: true,
                     fillColor: const Color.fromARGB(149, 32, 32, 32),
                     hintText: "Password :",
+                    // obscure: true,
+                    // obscure: true,
                     // label: Text("Password"),
                     hintStyle: TextStyle(
                       color: const Color.fromARGB(224, 151, 151, 151),
@@ -143,23 +150,23 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
                     enabledBorder: border,
                     focusedBorder: border,
                   ),
-                  keyboardType: TextInputType.numberWithOptions(signed: false),
+                  // keyboardType: TextInputType.visiblePassword,
                 ),
               ),
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
-                  await loginUser();
-                  // email = emailController.text;
-                  // password = passwordController.text;
+                  if (!formKey.currentState!.validate()) return;
+                  await createUserWithEmailAndPassword();
                 },
+              
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(234, 22, 22, 22),
                   elevation: 20,
                   foregroundColor: const Color.fromARGB(197, 100, 100, 100),
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
-                child: Text("Login", style: TextStyle(fontSize: 20)),
+                child: Text("Signup",  style: TextStyle(fontSize: 20)),
               ),
               Container(
                 padding: EdgeInsets.only(top: 10),
@@ -167,15 +174,15 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "New User?",
+                      "Already have an account?",
                       style: TextStyle(color: Colors.grey[400]),
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: const Text(
-                        "Signup here",
+                        "Login here",
                         style: TextStyle(color: Colors.blueAccent),
                       ),
                     ),
@@ -185,7 +192,6 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
               ),
             ],
           ),
-          //  "Already have an account?","Login here",
         ),
       ),
     );
