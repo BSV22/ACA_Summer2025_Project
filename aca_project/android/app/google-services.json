@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "894786792455",
+    "project_id": "aca-project-5e2af",
+    "storage_bucket": "aca-project-5e2af.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894786792455:android:ec6a09a4f870fe9c3ecea2",
+        "android_client_info": {
+          "package_name": "com.example.aca_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1-Z8O1dkJJEDotk-VWpeCI3QDLPDk8lM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
