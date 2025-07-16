@@ -24,22 +24,31 @@ class _LoginMaterialPageState extends State<LoginMaterialPage> {
   }
 
   Future<void> loginUser() async {
-    if (!formKey.currentState!.validate()) return;
-    try {
-      final userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          );
-      print(userCredential);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Welcome back, ${userCredential.user?.email}!')),);
-    } on FirebaseException catch (e) {
-      print(e.message);
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(e.message ?? 'Login failed')));
-    }
+  if (!formKey.currentState!.validate()) return;
+  
+  try {
+    final userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Welcome back, ${userCredential.user?.email}!')),
+    );
+    
+    // Navigator.of(context).pushReplacementNamed('/home');
+    
+  } on FirebaseAuthException catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(e.message ?? 'Login failed')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('An unexpected error occurred')),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
