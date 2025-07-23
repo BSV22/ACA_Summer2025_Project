@@ -50,18 +50,23 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        title: Center(
-          child: Text("Login!", style: TextStyle(color: Colors.blueGrey)),
-        ),
-        backgroundColor: const Color.fromARGB(167, 14, 14, 14),
-      ),
+      // backgroundColor: Colors.black87,
+      // appBar: AppBar(
+      //   title: Center(
+      //     child: Text("Login!", style: TextStyle(color: Colors.blueGrey)),
+      //   ),
+      //   // backgroundColor: const Color.fromARGB(167, 14, 14, 14),
+      // ),
       body: Form(
         key: formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Icon(Icons.confirmation_num, size: 100, color: Colors.blueAccent),
+            SizedBox(height: 20),
+            Text("Welcome Back", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text("Login to manage your tickets", style: TextStyle(fontSize: 16, color: Colors.grey)),
+            SizedBox(height: 20),
             EmailAuth(ctrl: emailController),
             Password(ctrl: passwordController),
             SizedBox(height: 20),
@@ -72,17 +77,21 @@ class _LoginPageState extends State<LoginPage> {
               },
 
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(234, 22, 22, 22),
-                elevation: 20,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                minimumSize: Size(290, 50),
+                backgroundColor: Colors.blueAccent,
+                elevation: 10,
                 foregroundColor: const Color.fromARGB(197, 100, 100, 100),
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
-              child: Text("Login", style: TextStyle(fontSize: 20)),
+              child: Text("Login", style: TextStyle(fontSize: 20, color: Colors.white)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("New User?", style: TextStyle(color: Colors.grey[400])),
+                Text("New User?"),
                 TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/signup');

@@ -24,10 +24,11 @@ class Password extends StatelessWidget {
         keyboardType: TextInputType.visiblePassword,
         textDirection: TextDirection.ltr,
         decoration: InputDecoration(
-          prefixIconColor: Colors.red,
-          filled: true,
-          fillColor: const Color.fromARGB(255, 24, 24, 24),
-          hint: Text("Password", style: TextStyle(color: Colors.grey)),
+          // prefixIconColor: Colors.red,
+          // filled: true,
+          // fillColor: const Color.fromARGB(255, 24, 24, 24),
+          label: Text("Password"),
+          // hint: Text("Password", style: TextStyle(color: Colors.grey)),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: const Color.fromARGB(200, 90, 90, 90),
@@ -37,14 +38,14 @@ class Password extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: const Color.fromARGB(200, 90, 90, 90),
+              color: Colors.blueAccent,
               width: 1.5,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          prefixIcon: Icon(Icons.password_rounded),
+          prefixIcon: Icon(Icons.lock),
         ),
-        style: TextStyle(color: Colors.grey),
+        style: TextStyle(color: Colors.black),
         obscureText: true,
         obscuringCharacter: "*",
       ),
@@ -76,10 +77,10 @@ class EmailAuth extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         textDirection: TextDirection.ltr,
         decoration: InputDecoration(
-          prefixIconColor: Colors.red,
-          filled: true,
-          fillColor: const Color.fromARGB(255, 24, 24, 24),
-          hint: Text("Email", style: TextStyle(color: Colors.grey)),
+          // prefixIconColor: Colors.red,
+          // filled: true,
+          // fillColor: const Color.fromARGB(255, 24, 24, 24),
+          label: Text("Email"),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: const Color.fromARGB(200, 90, 90, 90),
@@ -89,14 +90,14 @@ class EmailAuth extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: const Color.fromARGB(200, 90, 90, 90),
+              color: Colors.blueAccent,
               width: 1.5,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          prefixIcon: Icon(Icons.person_outline_outlined),
+          prefixIcon: Icon(Icons.email_rounded),
         ),
-        style: TextStyle(color: Colors.grey),
+        style: TextStyle(color: Colors.black),
       ),
     );
   }
