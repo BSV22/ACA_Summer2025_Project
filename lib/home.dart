@@ -204,12 +204,6 @@ class _HomePageState extends State<HomePage> {
             label: 'Settings',
           ),
         ],
-        //     items: [
-        //   BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner), label: 'Scanner'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Analytics'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-        // ],
         currentIndex: 0,
         selectedItemColor: Colors.blueAccent,
         onTap: (index) {

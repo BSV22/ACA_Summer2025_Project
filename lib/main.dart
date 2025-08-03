@@ -2,6 +2,8 @@ import 'package:appp/AuthWidget/otp_page.dart';
 import 'package:appp/analytics_page.dart';
 import 'package:appp/home.dart';
 import 'package:appp/login_page.dart';
+import 'package:appp/new_login_page.dart';
+import 'package:appp/otp_page.dart';
 import 'package:appp/phone_auth.dart';
 import 'package:appp/qr_scanner.dart';
 import 'package:appp/settings.dart';
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
         '/qrScanner': (context) => QrScanner(),
         '/settings': (context) => SettingsPage(),
         '/analytics': (context) => AnalyticsPage(),
+        '/newLogin': (context) => NewLoginPage(),
+        // '/newotpPage': (context) => OTPPage(),
       },
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return SignUpPage();
+          return NewLoginPage  ();
         },
       ),
     );
