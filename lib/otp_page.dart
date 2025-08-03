@@ -117,7 +117,7 @@ class _OtpPageState extends State<OTPPage> {
             ),
             SizedBox(height: 20),
             InkWell(
-              onTap: () => {Navigator.pushNamed(context, '/home')},
+              onTap: () => {Navigator.pushNamed(context, '/newLogin')},
               child: Text(
                 "Change Phone Number",
                 style: TextStyle(color: Colors.white),

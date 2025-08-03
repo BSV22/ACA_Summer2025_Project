@@ -8,6 +8,7 @@ import 'package:appp/phone_auth.dart';
 import 'package:appp/qr_scanner.dart';
 import 'package:appp/settings.dart';
 import 'package:appp/sign_up_page.dart';
+import 'package:appp/start.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return NewLoginPage  ();
+          return WelcomePage  ();
         },
       ),
     );
