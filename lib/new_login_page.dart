@@ -1,12 +1,10 @@
-import 'package:appp/AuthWidget/otpdialog.dart';
-import 'package:appp/AuthWidget/widget.dart';
 import 'package:appp/otp_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NewLoginPage extends StatefulWidget {
   final TextEditingController phonenumber = TextEditingController();
-  final TextEditingController CouponCode = TextEditingController();
+  final TextEditingController couponCode = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   NewLoginPage({super.key});
@@ -24,11 +22,13 @@ class _NewLoginPageState extends State<NewLoginPage> {
       phoneNumber: "+91$phonenumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
         await FirebaseAuth.instance.signInWithCredential(credential);
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Phone number verified successfully')),
         );
       },
       verificationFailed: (FirebaseAuthException e) {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Phone number verification failed: ${e.message}'),
@@ -36,58 +36,33 @@ class _NewLoginPageState extends State<NewLoginPage> {
         );
       },
       codeSent: (String verificationId, int? resendToken) {
-        // Navigator.pushNamed(context, '/otpPage', arguments: {
-        //   'verificationId': verificationId,
-        //   'phoneNumber': widget.phonenumber.text.trim(),
-        // });
-
+        if (!context.mounted) return;
         Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => OTPPage(
-      phonenumber: phonenumber,
-      otpctrl: codecontroller,
-      onVerify: () async {
-            PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verificationId,
-              smsCode: codecontroller.text.trim(),
-            );
-            await FirebaseAuth.instance.signInWithCredential(credential);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Phone number verified successfully')),
-            );
-            Navigator.of(context).pushReplacementNamed('/home');
-          },
-    ),
-  ),
-);
-
-
-        // showOtpDialog(
-        //   context,
-        //   widget.phonenumber.text.trim(),
-        //   codecontroller,
-        //   () async {
-        //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        //       verificationId: verificationId,
-        //       smsCode: codecontroller.text.trim(),
-        //     );
-        //     await FirebaseAuth.instance.signInWithCredential(credential);
-        //     ScaffoldMessenger.of(context).showSnackBar(
-        //       SnackBar(content: Text('Phone number verified successfully')),
-        //     );
-        //     Navigator.of(context).pop();
-        //     Navigator.of(context).pushReplacementNamed('/home');
-        //   },
-        // );
+          context,
+          MaterialPageRoute(
+            builder: (context) => OTPPage(
+              phonenumber: phonenumber,
+              otpctrl: codecontroller,
+              onVerify: () async {
+                PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                  verificationId: verificationId,
+                  smsCode: codecontroller.text.trim(),
+                );
+                await FirebaseAuth.instance.signInWithCredential(credential);
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Phone number verified successfully')),
+                );
+                Navigator.of(context).pushReplacementNamed('/home');
+              },
+            ),
+          ),
+        );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        // This callback is called when the code auto-retrieval times out.
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text('Code auto-retrieval timed out')),
-        // );
       },
     );
+    if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Phone number verification initiated')),
     );
@@ -103,7 +78,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: 290,
                 // padding: EdgeInsets.all(16.0),
                 // margin: EdgeInsets.all(16.0),
@@ -168,7 +143,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                 width: 322,
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: TextFormField(
-                  controller: widget.CouponCode,
+                  controller: widget.couponCode,
                   keyboardType: TextInputType.text,
                   textDirection: TextDirection.ltr,
                   decoration: InputDecoration(

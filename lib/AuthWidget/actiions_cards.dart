@@ -22,38 +22,31 @@ class ActionsCards extends StatefulWidget {
 class _DarshCardsState extends State<ActionsCards> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.ontap,
-      // splashColor: Colors.blueAccent,
-      // highlightColor: Colors.blueAccent.withOpacity(0.2),
-      // borderRadius: BorderRadius.circular(16),
-      // focusColor: Colors.blueAccent.withOpacity(0.2),
-      // hoverColor: Colors.blueAccent.withOpacity(0.2),
-      child: SizedBox(
-        width: 160,
-        height: 148,
-        
-      
-        // margin: EdgeInsets.symmetric(horizontal: , vertical: 12),
-        child: Card(
-          color: const Color.fromARGB(255, 255, 255, 255),
+    return SizedBox(
+      width: 160,
+      height: 148,
+      child: Card(
+        color: Theme.of(context).cardColor,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: widget.ontap,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(widget.icon, size: 50, color: widget.color),
+                Icon(widget.icon, size: 44, color: widget.color),
+                const SizedBox(height: 12),
                 Text(
                   widget.title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey[700],
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10),
               ],
             ),
           ),

@@ -31,16 +31,20 @@ class _LoginPageState extends State<LoginPage> {
             password: passwordController.text.trim(),
           );
 
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Welcome back, ${userCredential.user?.email}!')),
       );
 
       Navigator.of(context).pushReplacementNamed('/home');
     } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.message ?? 'Login failed')));
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('An unexpected error occurred')));

@@ -28,7 +28,7 @@ class _OtpPageState extends State<OTPPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 290,
               // padding: EdgeInsets.all(16.0),
               // margin: EdgeInsets.all(16.0),

@@ -1,4 +1,4 @@
-import 'package:appp/new_login_page.dart';
+import 'package:appp/home.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -19,10 +19,11 @@ class _WelcomePageState extends State<WelcomePage> {
   void _navigateToNextPage() async {
     await Future.delayed(const Duration(seconds: 2)); // Simulate loading
 
+    if (!mounted) return;
     // Navigate to main page (replace with your actual page)
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => NewLoginPage()),
+      MaterialPageRoute(builder: (_) => HomePage()),
     );
   }
 
@@ -35,10 +36,8 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              // width: 290,
-              child: Card(
-                elevation: 10,
+            Card(
+              elevation: 10,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -52,7 +51,6 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ),
               ),
-            ),
             SizedBox(height: 20),
             Text(
               "AquaFun",

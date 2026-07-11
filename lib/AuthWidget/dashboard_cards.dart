@@ -24,13 +24,13 @@ class DarshCards extends StatefulWidget {
 class _DarshCardsState extends State<DarshCards> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 160,
       height: 143,
 
       // margin: EdgeInsets.symmetric(horizontal: , vertical: 12),
       child: Card(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: Theme.of(context).cardColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -41,16 +41,15 @@ class _DarshCardsState extends State<DarshCards> {
               Icon(widget.icon, size: 50, color: widget.color),
               Text(
                 widget.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
-                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 widget.desc,
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: TextStyle(color: Colors.grey[500], fontSize: 16),
               ),
             ],
           ),

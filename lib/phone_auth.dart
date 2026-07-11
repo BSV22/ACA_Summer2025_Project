@@ -19,11 +19,13 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       phoneNumber: "+91$phonenumber",
       verificationCompleted: (PhoneAuthCredential credential) async {
         await FirebaseAuth.instance.signInWithCredential(credential);
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Phone number verified successfully')),
         );
       },
       verificationFailed: (FirebaseAuthException e) {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Phone number verification failed: ${e.message}'),
@@ -31,10 +33,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
         );
       },
       codeSent: (String verificationId, int? resendToken) {
-        // Navigator.pushNamed(context, '/otpPage', arguments: {
-        //   'verificationId': verificationId,
-        //   'phoneNumber': widget.phonenumber.text.trim(),
-        // });
+        if (!context.mounted) return;
         showOtpDialog(
           context,
           widget.phonenumber.text.trim(),
@@ -45,6 +44,7 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
               smsCode: codecontroller.text.trim(),
             );
             await FirebaseAuth.instance.signInWithCredential(credential);
+            if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Phone number verified successfully')),
             );
@@ -54,12 +54,14 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
         );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        if (!context.mounted) return;
         // This callback is called when the code auto-retrieval times out.
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Code auto-retrieval timed out')),
         );
       },
     );
+    if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Phone number verification initiated')),
     );

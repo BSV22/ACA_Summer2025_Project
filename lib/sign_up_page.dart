@@ -28,6 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
+      if (!mounted) return;
       FocusScope.of(context).unfocus();
       emailController.clear();
       passwordController.clear();
@@ -36,6 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
       Navigator.pushNamed(context, '/login');
     } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.message ?? 'Signup failed')));
